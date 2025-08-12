@@ -1,334 +1,273 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>To You, Thandeka - My Love</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <!-- Romantic fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Merriweather&display=swap" rel="stylesheet" />
 
-  <style>
-    /* Reset */
-    body, html {
-      margin: 0; padding: 0;
-      height: 100%;
-      background: #fff0f0;
-      overflow-x: hidden;
-      font-family: 'Merriweather', serif;
-      color: #8b0000;
-      user-select: none;
-    }
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Our Story</title>
 
-    h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 3.5rem;
-      text-align: center;
-      margin: 40px 0 10px;
-      color: #b22222;
-      text-shadow: 1px 1px 5px #ffe6e6;
-    }
+    <link type="text/css" rel="stylesheet" href="./index_files/default.css">
+    <script type="text/javascript" src="./index_files/jquery.min.js"></script>
+    <script type="text/javascript" src="./index_files/jscex.min.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-parser.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-jit.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-async.min.js"></script>
+    <script type="text/javascript" src="./index_files/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="./index_files/functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./index_files/love.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./config.js"></script>
+    <style type="text/css">
+        <!--
+        .STYLE1 {
+            color: #666666
+        }
 
-    #music-btn {
-      position: fixed;
-      top: 100px;
-      right: 100px;
-      width: 70px;
-      height: 70px;
-      cursor: pointer;
-      z-index: 10001;
-      transition: transform 0.3s ease;
-    }
-
-    #music-btn.playing {
-      animation: rotateMusic 10s linear infinite;
-    }
-
-    @keyframes rotateMusic {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      50% {
-        transform: rotate(180deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* Poetry container */
-    #poem-container {
-      max-width: 700px;
-      margin: 0 auto 60px;
-      padding: 20px 30px;
-      background: #fff0f5cc;
-      border-radius: 20px;
-      box-shadow: 0 0 15px #f8caca;
-      position: relative;
-    }
-
-    /* Animated poetry lines */
-    .poem-line {
-      opacity: 0;
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.8rem;
-      line-height: 1.4;
-      color: #a22222;
-      text-shadow: 1px 1px 2px #ffdede;
-      margin: 10px 0;
-      animation: fadeInUp 1s forwards;
-    }
-
-    /* Typewriter effect on active line */
-    .typewriter {
-      border-right: 2px solid #b22222;
-      animation: typing 3s steps(40, end), blinkCaret 0.75s step-end infinite;
-      white-space: nowrap;
-      overflow: hidden;
-      width: 0;
-      display: inline-block;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes typing {
-      from {
-        width: 0;
-      }
-
-      to {
-        width: 100%;
-      }
-    }
-
-    @keyframes blinkCaret {
-      0%, 100% {
-        border-color: transparent;
-      }
-
-      50% {
-        border-color: #b22222;
-      }
-    }
-
-    /* Poetry slider */
-    #poetry-slider {
-      max-width: 700px;
-      margin: 40px auto;
-      position: relative;
-      background: #ffe6e6;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 12px #d97474;
-      font-family: 'Dancing Script', cursive;
-      color: #900000;
-    }
-
-    .poetry-slide {
-      display: none;
-      font-size: 1.6rem;
-      line-height: 1.5;
-    }
-
-    .poetry-slide.active {
-      display: block;
-      animation: fadeInUp 1s ease forwards;
-    }
-
-    /* Slider controls */
-    .slider-controls {
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    .slider-btn {
-      background: #b22222;
-      border: none;
-      color: #fff;
-      padding: 8px 16px;
-      margin: 0 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.2rem;
-      transition: background-color 0.3s ease;
-    }
-
-    .slider-btn:hover {
-      background: #7a0a0a;
-    }
-
-    /* Floating petals animation */
-    .petal {
-      position: fixed;
-      top: -50px;
-      width: 20px;
-      height: 20px;
-      background: url('https://i.imgur.com/MfOnG8t.png') no-repeat center center / contain;
-      pointer-events: none;
-      animation: fall 10s linear infinite;
-      opacity: 0.8;
-      filter: drop-shadow(0 0 2px #c13a3a);
-      user-select: none;
-      z-index: 9999;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.8;
-      }
-
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-  </style>
+        -->
+    </style>
 </head>
 
-<body>
-  <h1>To You, Thandeka — My Love</h1>
+<body> 
+    <h1 style="display: flex; align-items: center; justify-content: center; text-align: center;"> to u thandeka my love </h1>
 
-  <!-- Music Button -->
-  <img id="music-btn" src="https://ajlovechina.github.io/loveBalloon/static/music.png" title="Play/Pause Music" alt="Music Control" />
 
-  <audio id="love-music" loop preload="auto">
-    <source src="./index_files/music.mp3" type="audio/mp3" />
-    <!-- fallback -->
-  </audio>
+    <img src="https://ajlovechina.github.io/loveBalloon/static/music.png" style="position: fixed;z-index: 10001;top:100px;right:100px; width: 70px; height: 70px;"
+        onclick="let m = document.querySelector('.song-audio-autoplay'); if (m.paused ) {m.play(); this.className = 'rotateImages'} else {m.pause(); this.className = ''}">
+    <audio class="song-audio-autoplay" controls loop style="display: none;visibility: hidden">
+        <source src="./index_files/music.mp3" type="audio/mp3" />
+    </audio>
+    <style type="text/css">
+        .rotateImages {
+            -webkit-animation: myRotate 10s linear infinite;
+            animation: myRotate 10s linear infinite;
+        }
 
-  <!-- Poetry Section -->
-  <div id="poem-container" aria-label="Animated love poem">
-    <p class="poem-line" style="animation-delay: 0s;">You taught me love in its purest form—</p>
-    <p class="poem-line" style="animation-delay: 2s;">A love that is patient, a love that is kind.</p>
-    <p class="poem-line" style="animation-delay: 4s;">You showed me the beauty within a storm,</p>
-    <p class="poem-line" style="animation-delay: 6s;">A force both powerful and divine.</p>
-    <p class="poem-line" style="animation-delay: 8s;">You revealed the strength I hold inside,</p>
-    <p class="poem-line" style="animation-delay: 10s;">And how to wield it without pride.</p>
-    <p class="poem-line" style="animation-delay: 12s;">You helped me see who I truly am,</p>
-    <p class="poem-line" style="animation-delay: 14s;">The person I was meant to be all along.</p>
-    <p class="poem-line" style="animation-delay: 16s;">You taught me to believe, to reach, to dream,</p>
-    <p class="poem-line" style="animation-delay: 18s;">To embrace the goals I can achieve.</p>
-    <p class="poem-line" style="animation-delay: 20s;">For this love, I'm endlessly grateful—</p>
-    <p class="poem-line" style="animation-delay: 22s;">A love that feels like a gift from above.</p>
-    <p class="poem-line" style="animation-delay: 24s;">You've given me a piece of who you are,</p>
-    <p class="poem-line" style="animation-delay: 26s;">Keeping me grounded, never far.</p>
-  </div>
+        @-webkit-keyframes myRotate {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
 
-  <!-- Poetry slider: more poems or quotes -->
-  <div id="poetry-slider" aria-label="Love poetry slider">
-    <div class="poetry-slide active">
-      "Love is not about how many days, months or years you've been together.<br />
-      It's all about how much you love each other every single day."
+            50% {
+                -webkit-transform: rotate(180deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes myRotate {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            50% {
+                -webkit-transform: rotate(180deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+    </style>
+    
+
+    <div id="main">
+        <div id="error">
+            You taught me love in its purest form-A love that is patient, a love that is kind.
+            You showed me the beauty within a storm,
+            A force both powerful and divine.
+            You revealed the strength I hold inside, And how to wield it without pride.
+            You helped me see who I truly am, The person I was meant to be all along.
+            You taught me to believe, to reach, to dream,
+            To embrace the goals I can achieve.
+            For this love, I'm endlessly grateful-A love that feels like a gift from above.
+			You've given me a piece of who you are, Keeping me grounded, never far.
+        </div>
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                </div>
+            </div>
+            <div id="clock-box">
+                <span id="clock-box-inside-text">
+                </span>
+                <div id="clock"></div>
+            </div>
+            <canvas id="canvas" width="1100" height="680"></canvas>
+        </div>
+
     </div>
-    <div class="poetry-slide">
-      "In you, I've found the love of my life and my closest, truest friend."
-    </div>
-    <div class="poetry-slide">
-      "My heart is, and always will be, yours." – Jane Austen
-    </div>
 
-    <div class="slider-controls">
-      <button class="slider-btn" id="prev-poem">Prev</button>
-      <button class="slider-btn" id="next-poem">Next</button>
-    </div>
-  </div>
+    <script type="text/javascript">
+        $('#code').html(config.lines.map(item => {
+            return `<span class="say">${item}</span><br>
+						<span class="say"> </span><br>`
+        }).reduce((a, b) => {
+            return a + b;
+        }))
+        $("#clock-box-inside-text").html(`${config.names[0]}<span class="STYLE1"></span> ${config.names[1]}<span class="STYLE1"></span>`)
+    </script>
 
-  <!-- Floating petals container -->
-  <div id="petal-container"></div>
+    <script>
+        (function () {
+            var canvas = $('#canvas');
 
-  <!-- Placeholder for your Tree animation canvas -->
-  <canvas id="canvas" width="1100" height="680" style="display:block; margin: 40px auto;"></canvas>
+            if (!canvas[0].getContext) {
+                $("#error").show();
+                return false;
+            }
 
-  <!-- jQuery from CDN -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            var width = canvas.width();
+            var height = canvas.height();
 
-  <script>
-    // Music toggle logic
-    const musicBtn = document.getElementById('music-btn');
-    const music = document.getElementById('love-music');
-    musicBtn.addEventListener('click', () => {
-      if (music.paused) {
-        music.play();
-        musicBtn.classList.add('playing');
-      } else {
-        music.pause();
-        musicBtn.classList.remove('playing');
-      }
-    });
+            canvas.attr("width", width);
+            canvas.attr("height", height);
 
-    // Animate poem lines with fadeInUp sequentially
-    $(document).ready(() => {
-      const lines = $('#poem-container .poem-line');
-      lines.each((i, el) => {
-        setTimeout(() => {
-          $(el).css('opacity', 1).css('transform', 'translateY(0)');
-        }, i * 2000);
-      });
-    });
+            var opts = {
+                seed: {
+                    x: width / 2 - 20,
+                    color: "rgb(190, 26, 37)",
+                    scale: 2
+                },
+                branch: [
+                    [535, 680, 570, 250, 500, 200, 30, 100, [
+                        [540, 500, 455, 417, 340, 400, 13, 100, [
+                            [450, 435, 434, 430, 394, 395, 2, 40]
+                        ]],
+                        [550, 445, 600, 356, 680, 345, 12, 100, [
+                            [578, 400, 648, 409, 661, 426, 3, 80]
+                        ]],
+                        [539, 281, 537, 248, 534, 217, 3, 40],
+                        [546, 397, 413, 247, 328, 244, 9, 80, [
+                            [427, 286, 383, 253, 371, 205, 2, 40],
+                            [498, 345, 435, 315, 395, 330, 4, 60]
+                        ]],
+                        [546, 357, 608, 252, 678, 221, 6, 100, [
+                            [590, 293, 646, 277, 648, 271, 2, 80]
+                        ]]
+                    ]]
+                ],
+                bloom: {
+                    num: 700,
+                    width: 1080,
+                    height: 650,
+                },
+                footer: {
+                    width: 1200,
+                    height: 5,
+                    speed: 10,
+                }
+            }
 
-    // Poetry slider logic
-    const slides = document.querySelectorAll('.poetry-slide');
-    let currentSlide = 0;
+            var tree = new Tree(canvas[0], width, height, opts);
+            var seed = tree.seed;
+            var foot = tree.footer;
+            var hold = 1;
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
-      });
-    }
+            canvas.click(function (e) {
+                var offset = canvas.offset(),
+                    x,
 
-    document.getElementById('next-poem').addEventListener('click', () => {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    });
+ y;
+                x = e.pageX - offset.left;
+                y = e.pageY - offset.top;
+                if (seed.hover(x, y)) {
+                    hold = 0;
+                    canvas.unbind("click");
+                    canvas.unbind("mousemove");
+                    canvas.removeClass('hand');
+                }
+            }).mousemove(function (e) {
+                var offset = canvas.offset(),
+                    x, y;
+                x = e.pageX - offset.left;
+                y = e.pageY - offset.top;
+                canvas.toggleClass('hand', seed.hover(x, y));
+            });
 
-    document.getElementById('prev-poem').addEventListener('click', () => {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      showSlide(currentSlide);
-    });
+            var seedAnimate = eval(Jscex.compile("async", function () {
+                seed.draw();
+                while (hold) {
+                    $await(Jscex.Async.sleep(10));
+                }
+                while (seed.canScale()) {
+                    seed.scale(0.95);
+                    $await(Jscex.Async.sleep(10));
+                }
+                while (seed.canMove()) {
+                    seed.move(0, 2);
+                    foot.draw();
+                    $await(Jscex.Async.sleep(10));
+                }
+            }));
 
-    // Floating petals animation generator
-    const petalContainer = document.getElementById('petal-container');
+            var growAnimate = eval(Jscex.compile("async", function () {
+                do {
+                    tree.grow();
+                    $await(Jscex.Async.sleep(10));
+                } while (tree.canGrow());
+            }));
 
-    function createPetal() {
-      const petal = document.createElement('div');
-      petal.classList.add('petal');
-      petal.style.left = Math.random() * window.innerWidth + 'px';
-      petal.style.animationDuration = 8 + Math.random() * 5 + 's';
-      petal.style.opacity = 0.7 + Math.random() * 0.3;
-      petalContainer.appendChild(petal);
+            var flowAnimate = eval(Jscex.compile("async", function () {
+                do {
+                    tree.flower(2);
+                    $await(Jscex.Async.sleep(10));
+                } while (tree.canFlower());
+            }));
 
-      // Remove petal after animation
-      setTimeout(() => {
-        petal.remove();
-      }, 13000);
-    }
+            var moveAnimate = eval(Jscex.compile("async", function () {
+                tree.snapshot("p1", 240, 0, 610, 680);
+                while (tree.move("p1", 500, 0)) {
+                    foot.draw();
+                    $await(Jscex.Async.sleep(10));
+                }
+                foot.draw();
+                tree.snapshot("p2", 500, 0, 610, 680);
 
-    setInterval(createPetal, 400);
+                // 会有闪烁不得意这样做, (＞﹏＜)
+                canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+                canvas.css("background", "#ffe");
+                $await(Jscex.Async.sleep(300));
+                canvas.css("background", "none");
+            }));
 
-    // Your existing tree animation code should go here or be imported
-    // For now, just a placeholder to keep canvas visible
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    ctx.font = 'italic 24px "Dancing Script", cursive';
-    ctx.fillStyle = '#b22222';
-    ctx.textAlign = 'center';
-    ctx.fillText('🌹 Your Tree Animation Here 🌹', canvas.width / 2, canvas.height / 2);
-  </script>
+            var jumpAnimate = eval(Jscex.compile("async", function () {
+                var ctx = tree.ctx;
+                while (true) {
+                    tree.ctx.clearRect(0, 0, width, height);
+                    tree.jump();
+                    foot.draw();
+                    $await(Jscex.Async.sleep(25));
+                }
+            }));
+
+            var textAnimate = eval(Jscex.compile("async", function () {
+                var together = new Date(config.date);
+
+                $("#code").show().typewriter();
+                $("#clock-box").fadeIn(500);
+                while (true) {
+                    timeElapse(together);
+                    $await(Jscex.Async.sleep(1000));
+                }
+            }));
+
+            var runAsync = eval(Jscex.compile("async", function () {
+                $await(seedAnimate());
+                $await(growAnimate());
+                $await(flowAnimate());
+                $await(moveAnimate());
+
+                textAnimate().start();
+
+                $await(jumpAnimate());
+            }));
+
+            runAsync().start();
+        })();
+    </script>
+
 </body>
 
 </html>
